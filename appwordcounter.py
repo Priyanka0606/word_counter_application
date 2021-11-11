@@ -19,11 +19,11 @@ def predict():
     text = request.form.get('fname')
     print(text)
 
-    char = len(text)
-
 
     punct = string.punctuation
     stop_words = stopwords.words('english')
+    
+    char = len(text)
 
     sentences = nltk.sent_tokenize(text)
     sent = len(sentences)
@@ -39,9 +39,7 @@ def predict():
 
     freq = FreqDist(without_stopwords)
 
-    return render_template('predict.html' , predict = [f'No of sentences is : {sent}' ,  f'Total number of words :{wordnum}'  ,
-                           f'Total number of characters :{char}' ,  f' No of clean words is : {words}' ,
-                          freq.most_common()] )  
+    return render_template('predict.html' , predict = f'No of sentences is : {sent}')
 
 
 # Run the app
