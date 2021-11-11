@@ -18,28 +18,21 @@ def home():
 def predict():
     text = request.form.get('fname')
     print(text)
-
-
-    punct = string.punctuation
-    stop_words = stopwords.words('english')
     
     char = len(text)
 
-    sentences = nltk.sent_tokenize(text)
-    sent = len(sentences)
+    sentences = len(nltk.sent_tokenize(text))
 
-    words_token = nltk.word_tokenize(text)
-    wordnum = len(words_token)
+    wordsnum = len(nltk.word_tokenize(text))
+   
+    freq = FreqDist(nltk.word_tokenize(text))
 
     char = len(text)
     
-    clean_word = [word for word in nltk.word_tokenize(text.lower()) if word not in punct]
-    without_stopwords = [word for word in clean_word if word not in stop_words]
-    words = len(without_stopwords)
 
-    freq = FreqDist(without_stopwords)
 
-    return render_template('predict.html' , predict = f'No of sentences is : {sent}')
+    return render_template('predict.html', predict = { 'Sentences': sentences , 'Words': wordsnum ,'Characters': char,
+                                                    'frequencyof words': freq})
 
 
 # Run the app
